@@ -150,3 +150,8 @@ C:.
 
 
 ```
+### References
+
+```
+Dotnet template: https://github.com/pereiren/dotnet-template-onion
+```
