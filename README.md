@@ -35,7 +35,7 @@ This is just the version used by the template, if you need to use a newer or old
 
 1. Clone this repository
 2. Run dotnet restore to install the dependencies
-```
+
 
 ### Structure of the project
 
