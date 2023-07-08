@@ -44,7 +44,7 @@ namespace Apollo_Carter.API.BankManager.Application.Mappers
         {
             return new ApolloViewModel
             {
-                Id = apolloData.TaskId.ToGuid().ToString(),
+                Id = 
                 Description = apolloData.Description.ToString(),
                 Summary = apolloData.Summary.ToString(),
             };

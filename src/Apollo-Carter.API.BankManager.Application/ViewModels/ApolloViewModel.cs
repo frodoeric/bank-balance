@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 using Apollo_Carter.API.BankManager.Domain.ApolloData;
 
 /*
@@ -27,6 +28,7 @@ namespace Apollo_Carter.API.BankManager.Application.ViewModels
             Accounts = accounts;
         }
         public IEnumerable<Account> Accounts { get; set; }
+
 
         [Required]
         [MinLength(5)]

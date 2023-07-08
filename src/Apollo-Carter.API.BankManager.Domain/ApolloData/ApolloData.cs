@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Transactions;
-using ApolloData.ValueObjects;
 
 namespace Apollo_Carter.API.BankManager.Domain.ApolloData
 {
-    public class ApolloData : IAggregateRoot
+    public class ApolloData
     {
-        public ProviderName ProviderName { get; set; }
-        public CountryCode CountryCode { get; set; }
-        public AccountList Accounts { get; set; }
+        public string ProviderName { get; set; }
+        public string CountryCode { get; set; }
+        public List<Account> Accounts { get; set; }
     }
 }

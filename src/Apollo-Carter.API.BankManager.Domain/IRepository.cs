@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 namespace Apollo_Carter.API.BankManager.Domain
 {
     public interface IRepository<TEntity>
-        where TEntity : IAggregateRoot
     {
         Task<TEntity> FindById(Guid id);
         Task<List<TEntity>> FindAll();
