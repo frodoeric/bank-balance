@@ -10,4 +10,10 @@
     <ProjectReference Include="..\Apollo-Carter.API.BankManager.Domain\Apollo-Carter.API.BankManager.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Repositories\apollo-carter.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
