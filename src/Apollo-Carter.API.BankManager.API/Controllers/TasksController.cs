@@ -25,7 +25,7 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         /// </summary>
         /// <returns>Returns a list of All Tasks</returns>
         [HttpGet]
-        [ProducesResponseType(typeof(TaskViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
         {
             try
@@ -46,7 +46,7 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         /// <param name="id">Task's ID</param>
         /// <returns>Returns a Task by its ID</returns>
         [HttpGet("{id}", Name = "Get")]
-        [ProducesResponseType(typeof(TaskViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get(Guid id)
         {
             try
@@ -67,8 +67,8 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         /// <param name="taskViewModel"></param>
         /// <returns></returns>
         [HttpPost]
-        [ProducesResponseType(typeof(TaskViewModel), StatusCodes.Status200OK)]
-        public async Task<IActionResult> Post([FromBody] TaskViewModel taskViewModel)
+        [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> Post([FromBody] ApolloViewModel taskViewModel)
         {
             try
             {

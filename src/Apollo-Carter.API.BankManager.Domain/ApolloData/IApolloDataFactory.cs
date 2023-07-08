@@ -1,7 +1,7 @@
-﻿using Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using ApolloData.ValueObjects.AccountValueObjects;
 
 /*
  * Factories are concerned with creating new entities and value objects. 
@@ -11,10 +11,10 @@ using System.Text;
  * Infrastructure layer)
  */
 
-namespace Apollo_Carter.API.BankManager.Domain.Tasks
+namespace Apollo_Carter.API.BankManager.Domain.ApolloData
 {
-    public interface ITaskFactory
+    public interface IApolloDataFactory
     {
-        Task CreateTaskInstance(Summary summary, Description description);
+        ApolloData CreateApolloDataInstance();
     }
 }

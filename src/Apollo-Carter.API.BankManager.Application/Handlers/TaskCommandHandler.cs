@@ -1,6 +1,6 @@
-﻿using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Commands;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Events;
+﻿using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Events;
 using FluentMediator;
 using System;
 using System.Collections.Generic;
@@ -11,34 +11,30 @@ namespace Apollo_Carter.API.BankManager.Application.Handlers
 {
     public class TaskCommandHandler
     {
-        private readonly ITaskFactory _taskFactory;
-        private readonly ITaskRepository _taskRepository;
+        private readonly IApolloDataFactory _taskFactory;
+        private readonly IAccountRepository _taskRepository;
         private readonly IMediator _mediator;
 
-        public TaskCommandHandler(ITaskRepository taskRepository, ITaskFactory taskFactory, IMediator mediator)
+        public TaskCommandHandler(IAccountRepository taskRepository, IApolloDataFactory taskFactory, IMediator mediator)
         {
             _taskRepository = taskRepository;
             _taskFactory = taskFactory;
             _mediator = mediator;
         }
 
-        public async Task<Domain.Tasks.Task> HandleNewTask(CreateNewTaskCommand createNewTaskCommand)
+        public async Task<Domain.ApolloData.ApolloData> HandleNewTask(CreateNewTaskCommand createNewTaskCommand)
         {
-            var task = _taskFactory.CreateTaskInstance(
-                summary: new Domain.Tasks.ValueObjects.Summary(createNewTaskCommand.Summary),
-                description: new Domain.Tasks.ValueObjects.Description(createNewTaskCommand.Description)
-            );
+            var task = _taskFactory.CreateApolloDataInstance();
 
-            var taskCreated = await _taskRepository.Add(task);
+            var apolloCreated = await _taskRepository.Add(task);
 
             // You may raise an event in case you need to propagate this change to other microservices
-            await _mediator.PublishAsync(new TaskCreatedEvent(taskCreated.TaskId.ToGuid(),
-                taskCreated.Description.ToString(), taskCreated.Summary.ToString()));
+            await _mediator.PublishAsync(new ApolloDataCreatedEvent(apolloCreated));
 
-            return taskCreated;
+            return apolloCreated;
         }
 
-        public async System.Threading.Tasks.Task HandleDeleteTask(DeleteTaskCommand deleteTaskCommand)
+        public async Task HandleDeleteTask(DeleteTaskCommand deleteTaskCommand)
         {
             await _taskRepository.Remove(deleteTaskCommand.Id);
 

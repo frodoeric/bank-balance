@@ -13,9 +13,9 @@ using System.Text;
  * To be implemented in Infrastructure layer
  */
 
-namespace Apollo_Carter.API.BankManager.Domain.Tasks
+namespace Apollo_Carter.API.BankManager.Domain.ApolloData
 {
-    public interface ITaskRepository : IRepository<Task>
+    public interface IAccountRepository : IRepository<ApolloData>
     {
     }
 }

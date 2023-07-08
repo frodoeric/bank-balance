@@ -1,6 +1,6 @@
 ﻿using Apollo_Carter.API.BankManager.Application.ViewModels;
-using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Commands;
+using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Extensions;
 using System;
@@ -20,39 +20,37 @@ using System.Linq;
 
 namespace Apollo_Carter.API.BankManager.Application.Mappers
 {
-    public class TaskViewModelMapper
+    public class ApolloDataViewModelMapper
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
         
-        public TaskViewModelMapper(IHttpContextAccessor httpContextAccessor)
+        public ApolloDataViewModelMapper(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public IEnumerable<TaskViewModel> ConstructFromListOfEntities(IEnumerable<Task> tasks)
+        public IEnumerable<ApolloViewModel> ConstructFromListOfEntities(IEnumerable<Domain.ApolloData.ApolloData> apolloData)
         {
-            var tasksViewModel = tasks.Select(i => new TaskViewModel
+            var tasksViewModel = apolloData.Select(i => new ApolloViewModel
             {
-                Id = i.TaskId.ToGuid().ToString(),
-                Description = i.Description.ToString(),
-                Summary = i.Summary.ToString()
+                Id = i.Accounts.FirstOrDefault().AccountId.ToGuid().ToString(),
             }
             );
 
             return tasksViewModel;
         }
 
-        public TaskViewModel ConstructFromEntity(Task task)
+        public ApolloViewModel ConstructFromEntity(string providerName, string countryCode, IEnumerable<Account> accountList)
         {
-            return new TaskViewModel
+            return new ApolloViewModel
             {
-                Id = task.TaskId.ToGuid().ToString(),
-                Description = task.Description.ToString(),
-                Summary = task.Summary.ToString(),
+                Id = apolloData.TaskId.ToGuid().ToString(),
+                Description = apolloData.Description.ToString(),
+                Summary = apolloData.Summary.ToString(),
             };
         }
 
-        public CreateNewTaskCommand ConvertToNewTaskCommand(TaskViewModel taskViewModel)
+        public CreateNewTaskCommand ConvertToNewTaskCommand(ApolloViewModel taskViewModel)
         {
             return new CreateNewTaskCommand(taskViewModel.Summary, taskViewModel.Description);
         }

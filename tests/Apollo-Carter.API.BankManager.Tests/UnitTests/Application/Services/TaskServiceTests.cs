@@ -1,8 +1,8 @@
 ﻿using Apollo_Carter.API.BankManager.Application.Mappers;
 using Apollo_Carter.API.BankManager.Application.Services;
-using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Commands;
-using Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects;
+using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.ValueObjects;
 using Apollo_Carter.API.BankManager.Tests.UnitTests.Helpers;
 using FluentMediator;
 using Microsoft.AspNetCore.Http;
@@ -19,20 +19,20 @@ namespace Apollo_Carter.API.BankManager.Tests.UnitTests.Application.Services
 {
     public class TaskServiceTests
     {
-        private readonly Mock<ITaskRepository> _mockTaskRepository = new Mock<ITaskRepository>();
-        private readonly Mock<ITaskFactory> _mockTaskFactory = new Mock<ITaskFactory>();
+        private readonly Mock<IAccountRepository> _mockTaskRepository = new Mock<IAccountRepository>();
+        private readonly Mock<IApolloDataFactory> _mockTaskFactory = new Mock<IApolloDataFactory>();
         private readonly Mock<ITracer> _mockITracer = new Mock<ITracer>();
         private readonly Mock<IMediator> _mockIMediator = new Mock<IMediator>();
         private static readonly Mock<IHttpContextAccessor> _mockIHttpContextAccessor = new Mock<IHttpContextAccessor>();
 
-        private readonly TaskViewModelMapper _mockTaskViewModelMapper = new TaskViewModelMapper(_mockIHttpContextAccessor.Object);
+        private readonly ApolloDataViewModelMapper _mockTaskViewModelMapper = new ApolloDataViewModelMapper(_mockIHttpContextAccessor.Object);
 
         [Fact]
         public async System.Threading.Tasks.Task Create_Success()
         {
             //Arrange
             _mockITracer.Setup(x => x.BuildSpan(It.IsAny<string>())).Returns(() => new MockSpanBuilder(new MockTracer(), ""));
-            _mockIMediator.Setup(x => x.SendAsync<Task>(It.IsAny<CreateNewTaskCommand>(), null))
+            _mockIMediator.Setup(x => x.SendAsync<Account>(It.IsAny<CreateNewTaskCommand>(), null))
                 .Returns(System.Threading.Tasks.Task.FromResult(TaskHelper.GetTask()));
             _mockIHttpContextAccessor.Setup(x => x.HttpContext).Returns(HttpContextHelper.GetHttpContext());
 
@@ -51,7 +51,7 @@ namespace Apollo_Carter.API.BankManager.Tests.UnitTests.Application.Services
             Assert.NotNull(result.Description);
 
             _mockITracer.Verify(x => x.BuildSpan(It.IsAny<string>()), Times.Once);
-            _mockIMediator.Verify(x => x.SendAsync<Task>(It.IsAny<CreateNewTaskCommand>(), null), Times.Once);
+            _mockIMediator.Verify(x => x.SendAsync<Account>(It.IsAny<CreateNewTaskCommand>(), null), Times.Once);
         }
     }
 }

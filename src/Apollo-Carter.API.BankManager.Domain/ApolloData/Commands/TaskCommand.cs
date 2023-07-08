@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Apollo_Carter.API.BankManager.Domain.Tasks.Events
+namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Commands
 {
-    public class TaskEvent
+    public class TaskCommand
     {
         public Guid Id { get; set; }
 

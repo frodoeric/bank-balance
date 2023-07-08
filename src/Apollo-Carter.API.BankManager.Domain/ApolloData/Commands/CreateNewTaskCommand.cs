@@ -1,4 +1,4 @@
-﻿namespace Apollo_Carter.API.BankManager.Domain.Tasks.Commands
+﻿namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Commands
 {
     public class CreateNewTaskCommand : TaskCommand
     {

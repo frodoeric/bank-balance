@@ -7,9 +7,9 @@ using Apollo_Carter.API.BankManager.API.Extensions.Middleware;
 using Apollo_Carter.API.BankManager.Application.Handlers;
 using Apollo_Carter.API.BankManager.Application.Mappers;
 using Apollo_Carter.API.BankManager.Application.Services;
-using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Commands;
-using Apollo_Carter.API.BankManager.Domain.Tasks.Events;
+using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Events;
 using Apollo_Carter.API.BankManager.Infrastructure.Factories;
 using Apollo_Carter.API.BankManager.Infrastructure.Repositories;
 using FluentMediator;
@@ -46,9 +46,9 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddControllers();
 
             services.AddScoped<ITaskService, TaskService>();
-            services.AddTransient<ITaskRepository, TaskRepository>(); //just as an example, you may use it as .AddScoped
-            services.AddSingleton<TaskViewModelMapper>();
-            services.AddTransient<ITaskFactory, EntityFactory>();
+            services.AddTransient<IAccountRepository, AccountRepository>(); //just as an example, you may use it as .AddScoped
+            services.AddSingleton<ApolloDataViewModelMapper>();
+            services.AddTransient<IApolloDataFactory, EntityFactory>();
 
             
 
@@ -59,9 +59,9 @@ namespace Apollo_Carter.API.BankManager.API
 
             services.AddFluentMediator(builder =>
             {
-                builder.On<CreateNewTaskCommand>().PipelineAsync().Return<Domain.Tasks.Task, TaskCommandHandler>((handler, request) => handler.HandleNewTask(request));
+                builder.On<CreateNewTaskCommand>().PipelineAsync().Return<Domain.ApolloData.Account, TaskCommandHandler>((handler, request) => handler.HandleNewTask(request));
 
-                builder.On<TaskCreatedEvent>().PipelineAsync().Call<TaskEventHandler>((handler, request) => handler.HandleTaskCreatedEvent(request));
+                builder.On<ApolloDataCreatedEvent>().PipelineAsync().Call<TaskEventHandler>((handler, request) => handler.HandleTaskCreatedEvent(request));
 
                 builder.On<DeleteTaskCommand>().PipelineAsync().Call<TaskCommandHandler>((handler, request) => handler.HandleDeleteTask(request));
 

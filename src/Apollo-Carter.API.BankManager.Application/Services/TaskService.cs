@@ -1,6 +1,6 @@
 ﻿using Apollo_Carter.API.BankManager.Application.Mappers;
 using Apollo_Carter.API.BankManager.Application.ViewModels;
-using Apollo_Carter.API.BankManager.Domain.Tasks;
+using Apollo_Carter.API.BankManager.Domain.ApolloData;
 using FluentMediator;
 using OpenTracing;
 using System;
@@ -22,13 +22,13 @@ namespace Apollo_Carter.API.BankManager.Application.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly ITaskRepository _taskRepository;
-        private readonly ITaskFactory _taskFactory;
-        private readonly TaskViewModelMapper _taskViewModelMapper;
+        private readonly IAccountRepository _taskRepository;
+        private readonly IApolloDataFactory _taskFactory;
+        private readonly ApolloDataViewModelMapper _taskViewModelMapper;
         private readonly ITracer _tracer;
         private readonly IMediator _mediator;
 
-        public TaskService(ITaskRepository taskRepository, TaskViewModelMapper taskViewModelMapper, ITracer tracer, ITaskFactory taskFactory, IMediator mediator)
+        public TaskService(IAccountRepository taskRepository, ApolloDataViewModelMapper taskViewModelMapper, ITracer tracer, IApolloDataFactory taskFactory, IMediator mediator)
         {
             _taskRepository = taskRepository;
             _taskViewModelMapper = taskViewModelMapper;
@@ -37,13 +37,13 @@ namespace Apollo_Carter.API.BankManager.Application.Services
             _mediator = mediator;
         }
 
-        public async Task<TaskViewModel> Create(TaskViewModel taskViewModel)
+        public async Task<ApolloViewModel> Create(ApolloViewModel taskViewModel)
         {
             using(var scope = _tracer.BuildSpan("Create_TaskService").StartActive(true))
             {
                 var newTaskCommand = _taskViewModelMapper.ConvertToNewTaskCommand(taskViewModel);
                 
-                var taskResult = await _mediator.SendAsync<Domain.Tasks.Task>(newTaskCommand);
+                var taskResult = await _mediator.SendAsync<Domain.ApolloData.Account>(newTaskCommand);
 
                 return _taskViewModelMapper.ConstructFromEntity(taskResult);
             }
@@ -58,7 +58,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
             }
         }
 
-        public async Task<IEnumerable<TaskViewModel>> GetAll()
+        public async Task<IEnumerable<ApolloViewModel>> GetAll()
         {
             using (var scope = _tracer.BuildSpan("GetAll_TaskService").StartActive(true))
             {
@@ -68,7 +68,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
             }
         }
 
-        public async Task<TaskViewModel> GetById(Guid id)
+        public async Task<ApolloViewModel> GetById(Guid id)
         {
             using (var scope = _tracer.BuildSpan("GetById_TaskService").StartActive(true))
             {

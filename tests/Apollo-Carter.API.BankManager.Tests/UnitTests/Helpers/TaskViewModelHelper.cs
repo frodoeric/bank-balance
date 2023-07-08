@@ -7,9 +7,9 @@ namespace Apollo_Carter.API.BankManager.Tests.UnitTests.Helpers
 {
     public static class TaskViewModelHelper
     {
-        public static TaskViewModel GetTaskViewModel()
+        public static ApolloViewModel GetTaskViewModel()
         {
-            return new TaskViewModel
+            return new ApolloViewModel
             {
                 Id = Guid.NewGuid().ToString(),
                 Summary = "Summary",

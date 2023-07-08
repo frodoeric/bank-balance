@@ -10,17 +10,17 @@ using System.Text;
  * https://martinfowler.com/bliki/ValueObject.html
  */
 
-namespace Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects
+namespace ApolloData.ValueObjects.AccountValueObjects
 {
-    public readonly struct Summary
+    public readonly struct Balances
     {
         private readonly string _text;
 
-        public Summary(string text)
+        public Balances(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentNullException($"Summary value is required");
+                throw new ArgumentNullException($"Balances value is required");
             }
 
             _text = text;

@@ -1,25 +1,20 @@
-﻿using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects;
+﻿using Apollo_Carter.API.BankManager.Domain.ApolloData;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-
-/*
- * Factories are concerned with creating new entities and value objects. 
- * They also validate the invariants for the newly created objects.
- * 
- * This is the EntityFactory, which creates new instances of Entities 
- * and Aggregate Roots.)
- */
-
 namespace Apollo_Carter.API.BankManager.Infrastructure.Factories
 {
-    public class EntityFactory : ITaskFactory
+    public class EntityFactory : IApolloDataFactory
     {
-        public Domain.Tasks.Task CreateTaskInstance(Summary summary, Description description)
+        public Domain.ApolloData.ApolloData CreateApolloDataInstance()
         {
-            return new TaskFactory(summary, description);
+            return new ApolloDataFactory();
+        }
+
+        public Domain.ApolloData.ApolloData GetAllApolloDataInstance()
+        {
+            return new ApolloDataFactory();
         }
     }
 }

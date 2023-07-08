@@ -10,21 +10,22 @@ using System.Text;
  * https://martinfowler.com/bliki/ValueObject.html
  */
 
-namespace Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects
+namespace ApolloData.ValueObjects.AccountValueObjects
 {
-    public readonly struct Description
+    public readonly struct Identifiers
     {
         private readonly string _text;
 
-        public Description(string text)
+        public Identifiers(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
             {
-                throw new ArgumentNullException($"Description value is required");
+                throw new ArgumentNullException($"Identifiers value is required");
             }
 
             _text = text;
         }
+
         public override string ToString()
         {
             return _text;

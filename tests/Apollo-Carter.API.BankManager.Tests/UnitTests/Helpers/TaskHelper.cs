@@ -1,5 +1,5 @@
-﻿using Apollo_Carter.API.BankManager.Domain.Tasks;
-using Apollo_Carter.API.BankManager.Domain.Tasks.ValueObjects;
+﻿using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.ValueObjects;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,19 +8,19 @@ namespace Apollo_Carter.API.BankManager.Tests.UnitTests.Helpers
 {
     public static class TaskHelper
     {
-        public static Task GetTask()
+        public static Account GetTask()
         {
-            return new Task()
+            return new Account()
             {
-                TaskId = new TaskId(Guid.NewGuid()),
+                TaskId = new AccountId(Guid.NewGuid()),
                 Summary = new Summary("Summary"),
-                Description = new Description("Description")
+                Description = new AccountHolderNames("Description")
             };
         }
 
-        public static IEnumerable<Task> GetTasks()
+        public static IEnumerable<Account> GetTasks()
         {
-            return new List<Task>()
+            return new List<Account>()
             {
                 GetTask()
             };
