@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using ApolloData.ValueObjects.AccountValueObjects;
 
 namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Events
 {
@@ -10,7 +9,7 @@ namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Events
     {
         public TaskDeletedEvent(Guid id)
         {
-            AccountId = new AccountId(id);
+            AccountId = id;
         }
     }
 }

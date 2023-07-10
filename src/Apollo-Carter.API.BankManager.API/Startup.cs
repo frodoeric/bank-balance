@@ -46,31 +46,32 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddControllers();
 
             services.AddScoped<ITaskService, TaskService>();
-            services.AddTransient<IAccountRepository, AccountRepository>(); //just as an example, you may use it as .AddScoped
-            services.AddSingleton<ApolloDataViewModelMapper>();
+            services.AddTransient<IApolloDataRepository, ApolloDataRepository>(); //just as an example, you may use it as .AddScoped
+            services.AddSingleton<ApolloDataProfile>();
             services.AddTransient<IApolloDataFactory, EntityFactory>();
 
-            
 
-            services.AddScoped<TaskCommandHandler>();
-            services.AddScoped<TaskEventHandler>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddScoped<ApolloCommandHandler>();
+            services.AddScoped<ApolloEventHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddFluentMediator(builder =>
             {
-                builder.On<CreateNewTaskCommand>().PipelineAsync().Return<Domain.ApolloData.Account, TaskCommandHandler>((handler, request) => handler.HandleNewTask(request));
+                builder.On<CreateNewApolloCommand>().PipelineAsync().Return<ApolloData, ApolloCommandHandler>((handler, request) => handler.HandleNewTask(request));
 
-                builder.On<ApolloDataCreatedEvent>().PipelineAsync().Call<TaskEventHandler>((handler, request) => handler.HandleTaskCreatedEvent(request));
+                builder.On<ApolloDataCreatedEvent>().PipelineAsync().Call<ApolloEventHandler>((handler, request) => handler.HandleTaskCreatedEvent(request));
 
-                builder.On<DeleteTaskCommand>().PipelineAsync().Call<TaskCommandHandler>((handler, request) => handler.HandleDeleteTask(request));
+                builder.On<DeleteApolloCommand>().PipelineAsync().Call<ApolloCommandHandler>((handler, request) => handler.HandleDeleteTask(request));
 
-                builder.On<TaskDeletedEvent>().PipelineAsync().Call<TaskEventHandler>((handler, request) => handler.HandleTaskDeletedEvent(request));
+                builder.On<TaskDeletedEvent>().PipelineAsync().Call<ApolloEventHandler>((handler, request) => handler.HandleTaskDeletedEvent(request));
             });
 
             services.AddSingleton(serviceProvider =>
             {
-                var serviceName = Assembly.GetEntryAssembly().GetName().Name;
+                var serviceName = Assembly.GetEntryAssembly()?.GetName().Name;
 
                 var loggerFactory = serviceProvider.GetRequiredService<ILoggerFactory>();
 

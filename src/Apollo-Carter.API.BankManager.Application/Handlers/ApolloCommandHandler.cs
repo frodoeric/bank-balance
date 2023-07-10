@@ -4,27 +4,31 @@ using Apollo_Carter.API.BankManager.Domain.ApolloData.Events;
 using FluentMediator;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Apollo_Carter.API.BankManager.Application.Handlers
 {
-    public class TaskCommandHandler
+    public class ApolloCommandHandler
     {
         private readonly IApolloDataFactory _taskFactory;
-        private readonly IAccountRepository _taskRepository;
+        private readonly IApolloDataRepository _taskRepository;
         private readonly IMediator _mediator;
 
-        public TaskCommandHandler(IAccountRepository taskRepository, IApolloDataFactory taskFactory, IMediator mediator)
+        public ApolloCommandHandler(IApolloDataRepository taskRepository, IApolloDataFactory taskFactory, IMediator mediator)
         {
             _taskRepository = taskRepository;
             _taskFactory = taskFactory;
             _mediator = mediator;
         }
 
-        public async Task<Domain.ApolloData.ApolloData> HandleNewTask(CreateNewTaskCommand createNewTaskCommand)
+        public async Task<Domain.ApolloData.ApolloData> HandleNewTask(CreateNewApolloCommand createNewApolloCommand)
         {
-            var task = _taskFactory.CreateApolloDataInstance();
+            var task = _taskFactory.CreateApolloDataInstance(
+                createNewApolloCommand.ProviderName,
+                createNewApolloCommand.CountryCode,
+                createNewApolloCommand.Accounts);
 
             var apolloCreated = await _taskRepository.Add(task);
 
@@ -34,12 +38,13 @@ namespace Apollo_Carter.API.BankManager.Application.Handlers
             return apolloCreated;
         }
 
-        public async Task HandleDeleteTask(DeleteTaskCommand deleteTaskCommand)
+        public async Task HandleDeleteTask(DeleteApolloCommand deleteTaskCommand)
         {
-            await _taskRepository.Remove(deleteTaskCommand.Id);
+            var id = deleteTaskCommand.Accounts.FirstOrDefault()!.AccountId;
+            await _taskRepository.Remove(id);
 
             // You may raise an event in case you need to propagate this change to other microservices
-            await _mediator.PublishAsync(new TaskDeletedEvent(deleteTaskCommand.Id));
+            await _mediator.PublishAsync(new TaskDeletedEvent(id));
         }
     }
 }

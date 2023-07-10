@@ -15,7 +15,7 @@ using System.Text;
 
 namespace Apollo_Carter.API.BankManager.Domain.ApolloData
 {
-    public interface IAccountRepository : IRepository<ApolloData>
+    public interface IApolloDataRepository : IRepository<ApolloData>
     {
     }
 }

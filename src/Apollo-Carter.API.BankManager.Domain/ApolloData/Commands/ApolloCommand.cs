@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Transactions;
 
-namespace Apollo_Carter.API.BankManager.Domain.ApolloData
+namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Commands
 {
-    public class ApolloData
+    public class ApolloCommand
     {
+        public Guid Id { get; set; }
         public string ProviderName { get; set; }
         public string CountryCode { get; set; }
         public IEnumerable<Account> Accounts { get; set; }

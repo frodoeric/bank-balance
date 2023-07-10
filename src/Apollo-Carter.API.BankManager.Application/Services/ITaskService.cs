@@ -18,9 +18,9 @@ namespace Apollo_Carter.API.BankManager.Application.Services
 {
     public interface ITaskService
     {
-        Task<IEnumerable<ApolloViewModel>> GetAll();
+        Task<ApolloViewModel> GetAll();
         Task<ApolloViewModel> GetById(Guid id);
-        Task<ApolloViewModel> Create(ApolloViewModel taskViewModel);
+        Task<ApolloViewModel> Create(ApolloViewModel apolloVewModel);
         Task Delete(Guid id);
     }
 }

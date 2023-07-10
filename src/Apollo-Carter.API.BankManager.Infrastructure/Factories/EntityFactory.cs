@@ -7,14 +7,9 @@ namespace Apollo_Carter.API.BankManager.Infrastructure.Factories
 {
     public class EntityFactory : IApolloDataFactory
     {
-        public Domain.ApolloData.ApolloData CreateApolloDataInstance()
+        public ApolloData CreateApolloDataInstance(string providerName, string countryCode, IEnumerable<Account> accounts)
         {
-            return new ApolloDataFactory();
-        }
-
-        public Domain.ApolloData.ApolloData GetAllApolloDataInstance()
-        {
-            return new ApolloDataFactory();
+            return new ApolloDataFactory(providerName, countryCode, accounts);
         }
     }
 }

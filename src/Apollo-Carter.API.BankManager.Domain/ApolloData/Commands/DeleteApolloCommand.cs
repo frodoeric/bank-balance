@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Commands
 {
-    public class DeleteTaskCommand : TaskCommand
+    public class DeleteApolloCommand : ApolloCommand
     {
-        public DeleteTaskCommand(Guid id)
+        public DeleteApolloCommand(Guid id)
         {
             Id = id;
         }

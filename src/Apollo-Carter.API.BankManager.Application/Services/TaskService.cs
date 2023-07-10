@@ -1,11 +1,13 @@
 ﻿using Apollo_Carter.API.BankManager.Application.Mappers;
 using Apollo_Carter.API.BankManager.Application.ViewModels;
 using Apollo_Carter.API.BankManager.Domain.ApolloData;
+using AutoMapper;
 using FluentMediator;
 using OpenTracing;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
 
 /*
  * Application service is that layer which initializes and oversees interaction 
@@ -22,60 +24,55 @@ namespace Apollo_Carter.API.BankManager.Application.Services
 {
     public class TaskService : ITaskService
     {
-        private readonly IAccountRepository _taskRepository;
+        private readonly IApolloDataRepository _taskRepository;
         private readonly IApolloDataFactory _taskFactory;
-        private readonly ApolloDataViewModelMapper _taskViewModelMapper;
-        private readonly ITracer _tracer;
+        private readonly ApolloDataProfile _apolloMapper;
         private readonly IMediator _mediator;
+        private readonly IMapper _mapper;
 
-        public TaskService(IAccountRepository taskRepository, ApolloDataViewModelMapper taskViewModelMapper, ITracer tracer, IApolloDataFactory taskFactory, IMediator mediator)
+        public TaskService(
+            IApolloDataRepository taskRepository, 
+            ApolloDataProfile apolloMapper,
+            IApolloDataFactory taskFactory, 
+            IMediator mediator,
+            IMapper mapper)
         {
             _taskRepository = taskRepository;
-            _taskViewModelMapper = taskViewModelMapper;
-            _tracer = tracer;
+            _apolloMapper = apolloMapper;
             _taskFactory = taskFactory;
             _mediator = mediator;
+            _mapper = mapper;
         }
 
-        public async Task<ApolloViewModel> Create(ApolloViewModel taskViewModel)
+        public async Task<ApolloViewModel> Create(ApolloViewModel apolloViewModel)
         {
-            using(var scope = _tracer.BuildSpan("Create_TaskService").StartActive(true))
-            {
-                var newTaskCommand = _taskViewModelMapper.ConvertToNewTaskCommand(taskViewModel);
-                
-                var taskResult = await _mediator.SendAsync<Domain.ApolloData.Account>(newTaskCommand);
+            var newApolloCommand = _apolloMapper.ConvertToNewApolloCommand(apolloViewModel);
+            var apolloResult = await _mediator.SendAsync<ApolloData>(newApolloCommand);
+            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloResult);
 
-                return _taskViewModelMapper.ConstructFromEntity(taskResult);
-            }
+            return apolloViewResult;
         }
 
         public async System.Threading.Tasks.Task Delete(Guid id)
         {
-            using (var scope = _tracer.BuildSpan("Delete_TaskService").StartActive(true))
-            {
-                var deleteTaskCommand = _taskViewModelMapper.ConvertToDeleteTaskCommand(id);
-                await _mediator.PublishAsync(deleteTaskCommand);
-            }
+            var deleteTaskCommand = _apolloMapper.ConvertToDeleteApolloCommand(id);
+            await _mediator.PublishAsync(deleteTaskCommand);
         }
 
-        public async Task<IEnumerable<ApolloViewModel>> GetAll()
+        public async Task<ApolloViewModel> GetAll()
         {
-            using (var scope = _tracer.BuildSpan("GetAll_TaskService").StartActive(true))
-            {
-                var tasksEntities = await _taskRepository.FindAll();
+            var apolloData = await _taskRepository.FindAll();
+            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloData);
 
-                return _taskViewModelMapper.ConstructFromListOfEntities(tasksEntities);
-            }
+            return apolloViewResult;
         }
 
         public async Task<ApolloViewModel> GetById(Guid id)
         {
-            using (var scope = _tracer.BuildSpan("GetById_TaskService").StartActive(true))
-            {
-                var taskEntity = await _taskRepository.FindById(id);
+            var apolloData = await _taskRepository.FindById(id);
+            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloData);
 
-                return _taskViewModelMapper.ConstructFromEntity(taskEntity);
-            }
+            return apolloViewResult;
         }
     }
 }

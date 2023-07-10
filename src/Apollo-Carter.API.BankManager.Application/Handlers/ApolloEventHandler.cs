@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Apollo_Carter.API.BankManager.Application.Handlers
 {
-    public class TaskEventHandler
+    public class ApolloEventHandler
     {
         public async Task HandleTaskCreatedEvent(ApolloDataCreatedEvent taskCreatedEvent)
         {

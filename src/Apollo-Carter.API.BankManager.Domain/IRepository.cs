@@ -16,7 +16,7 @@ namespace Apollo_Carter.API.BankManager.Domain
     public interface IRepository<TEntity>
     {
         Task<TEntity> FindById(Guid id);
-        Task<List<TEntity>> FindAll();
+        Task<TEntity> FindAll();
         Task<TEntity> Add(TEntity entity);
         Task Remove(Guid id);
     }

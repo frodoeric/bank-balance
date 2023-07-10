@@ -37,7 +37,7 @@ namespace Apollo_Carter.API.BankManager.Application.ViewModels
 
         [MaxLength(1500)]
         [JsonProperty(PropertyName = "CountryCode")]
-        public string CountryCode { get; set; } = "";
+        public string CountryCode { get; set; } = string.Empty;
     }
 
 
