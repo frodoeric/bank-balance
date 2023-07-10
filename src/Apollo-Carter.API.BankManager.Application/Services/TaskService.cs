@@ -62,7 +62,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
         public async Task<ApolloViewModel> GetAll()
         {
             var apolloData = await _taskRepository.FindAll();
-            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloData);
+            var apolloViewResult = _mapper.Map<ApolloData, ApolloViewModel>(apolloData);
 
             return apolloViewResult;
         }

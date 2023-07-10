@@ -10,20 +10,20 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TasksController : ControllerBase
+    public class ApolloController : ControllerBase
     {
         private readonly ITaskService _taskService;
 
 
-        public TasksController(ITaskService taskService)
+        public ApolloController(ITaskService taskService)
         {
             _taskService = taskService;            
         }
 
         /// <summary>
-        /// Get Tasks
+        /// Get Apollo Data
         /// </summary>
-        /// <returns>Returns a list of All Tasks</returns>
+        /// <returns>Returns a list of All Apollo Data</returns>
         [HttpGet]
         [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
         public async Task<IActionResult> Get()
@@ -41,9 +41,9 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         }
 
         /// <summary>
-        /// Get Task by ID
+        /// Get Apollo Data by ID
         /// </summary>
-        /// <param name="id">Task's ID</param>
+        /// <param name="id">Apollo Data's ID</param>
         /// <returns>Returns a Task by its ID</returns>
         [HttpGet("{id}", Name = "Get")]
         [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
@@ -62,7 +62,7 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         }
 
         /// <summary>
-        /// Create a new Task
+        /// Create a new Apollo Data
         /// </summary>
         /// <param name="taskViewModel"></param>
         /// <returns></returns>
@@ -83,9 +83,9 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         }
 
         /// <summary>
-        /// Delete a Task
+        /// Delete a Apollo Data
         /// </summary>
-        /// <param name="id">Task's ID</param>
+        /// <param name="id">Apollo's ID</param>
         /// <returns></returns>
         [HttpDelete("{id}", Name = "Delete")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]

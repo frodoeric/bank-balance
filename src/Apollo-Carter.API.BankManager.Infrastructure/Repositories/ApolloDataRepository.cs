@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Apollo_Carter.API.BankManager.Infrastructure.Factories;
 using System.IO;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 namespace Apollo_Carter.API.BankManager.Infrastructure.Repositories
 {
@@ -44,7 +45,7 @@ namespace Apollo_Carter.API.BankManager.Infrastructure.Repositories
                 _accountFactory.CreateApolloDataInstance(entity.ProviderName, entity.CountryCode, entity.Accounts));
         }
 
-        public Task Remove(Guid id)
+        public Task Remove(string id)
         {
             //todo create Remove method
             return Task.CompletedTask;
@@ -52,9 +53,9 @@ namespace Apollo_Carter.API.BankManager.Infrastructure.Repositories
 
         private static ApolloData ReadApolloDataJsonFile()
         {
-            using var r = new StreamReader("apollo-carter.json");
+            using var r = new StreamReader("../Apollo-Carter.API.BankManager.Infrastructure/Repositories/apollo-carter.json");
             var json = r.ReadToEnd();
-            var apolloData = JsonSerializer.Deserialize<ApolloData>(json);
+            var apolloData = JsonConvert.DeserializeObject<ApolloData>(json);
 
             return apolloData;
         }

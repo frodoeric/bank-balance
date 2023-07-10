@@ -6,6 +6,6 @@ namespace Apollo_Carter.API.BankManager.Domain.ApolloData
     {
         public double Amount { get; set; }
         public string CreditDebitIndicator { get; set; }
-        public List<object> CreditLines { get; set; }
+        public List<string> CreditLines { get; set; }
     }
 }

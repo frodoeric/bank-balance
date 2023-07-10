@@ -14,7 +14,7 @@ namespace Apollo_Carter.API.BankManager.Application.Mappers
     {
         public ApolloDataProfile()
         {
-            CreateMap<ApolloViewModel, ApolloData>();
+            CreateMap<ApolloData, ApolloViewModel>();
         }
 
         public CreateNewApolloCommand ConvertToNewApolloCommand(ApolloViewModel taskViewModel)

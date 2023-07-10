@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Transactions;
+using Newtonsoft.Json;
 
 namespace Apollo_Carter.API.BankManager.Domain.ApolloData
 {

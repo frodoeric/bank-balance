@@ -51,7 +51,12 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddTransient<IApolloDataFactory, EntityFactory>();
 
 
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(config => {
+                config.AddProfile(new ApolloDataProfile());
+            });
+
+
 
             services.AddScoped<ApolloCommandHandler>();
             services.AddScoped<ApolloEventHandler>();

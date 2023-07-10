@@ -18,6 +18,6 @@ namespace Apollo_Carter.API.BankManager.Domain
         Task<TEntity> FindById(Guid id);
         Task<TEntity> FindAll();
         Task<TEntity> Add(TEntity entity);
-        Task Remove(Guid id);
+        Task Remove(string id);
     }
 }

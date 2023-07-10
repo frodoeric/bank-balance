@@ -7,7 +7,7 @@ namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Events
 {
     public class TaskDeletedEvent : ApolloDataEvent
     {
-        public TaskDeletedEvent(Guid id)
+        public TaskDeletedEvent(string id)
         {
             AccountId = id;
         }
