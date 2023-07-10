@@ -153,6 +153,8 @@ C:.
 ### References
 
 ```
-Dotnet template: https://github.com/pereiren/dotnet-template-onion
-Aggregate: https://martinfowler.com/bliki/DDD_Aggregate.html
+Dotnet template:
+https://github.com/pereiren/dotnet-template-onion
+Aggregate:
+https://martinfowler.com/bliki/DDD_Aggregate.html
 ```
