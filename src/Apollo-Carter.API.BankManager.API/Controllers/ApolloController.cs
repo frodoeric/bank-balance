@@ -12,12 +12,32 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
     [ApiController]
     public class ApolloController : ControllerBase
     {
-        private readonly ITaskService _taskService;
+        private readonly IApolloService _taskService;
 
 
-        public ApolloController(ITaskService taskService)
+        public ApolloController(IApolloService taskService)
         {
             _taskService = taskService;            
+        }
+
+        /// <summary>
+        /// Get End-of-day Balances
+        /// </summary>
+        /// <returns>Returns end of day balances for each dai in the transactions</returns>
+        [HttpGet("EndOfDayBalance")]
+        [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetEndOfDayBalance()
+        {
+            try
+            {
+                return Ok(await _taskService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                Log.Error($"Error: message: {ex.Message} ");
+
+                return StatusCode(StatusCodes.Status500InternalServerError, new { exception_message = ex.Message });
+            }
         }
 
         /// <summary>

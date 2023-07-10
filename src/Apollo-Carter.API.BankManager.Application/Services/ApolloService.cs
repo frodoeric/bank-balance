@@ -9,20 +9,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
 
-/*
- * Application service is that layer which initializes and oversees interaction 
- * between the domain objects and services. The flow is generally like this: 
- * get domain object (or objects) from repository, execute an action and put it 
- * (them) back there (or not). It can do more - for instance it can check whether 
- * a domain object exists or not and throw exceptions accordingly. So it lets the 
- * user interact with the application (and this is probably where its name originates 
- * from) - by manipulating domain objects and services. Application services should 
- * generally represent all possible use cases.
- */
 
 namespace Apollo_Carter.API.BankManager.Application.Services
 {
-    public class TaskService : ITaskService
+    public class ApolloService : IApolloService
     {
         private readonly IApolloDataRepository _taskRepository;
         private readonly IApolloDataFactory _taskFactory;
@@ -30,7 +20,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
 
-        public TaskService(
+        public ApolloService(
             IApolloDataRepository taskRepository, 
             ApolloDataProfile apolloMapper,
             IApolloDataFactory taskFactory, 
@@ -48,7 +38,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
         {
             var newApolloCommand = _apolloMapper.ConvertToNewApolloCommand(apolloViewModel);
             var apolloResult = await _mediator.SendAsync<ApolloData>(newApolloCommand);
-            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloResult);
+            var apolloViewResult = _mapper.Map<ApolloData, ApolloViewModel>(apolloResult);
 
             return apolloViewResult;
         }
@@ -70,7 +60,7 @@ namespace Apollo_Carter.API.BankManager.Application.Services
         public async Task<ApolloViewModel> GetById(Guid id)
         {
             var apolloData = await _taskRepository.FindById(id);
-            var apolloViewResult = _mapper.Map<ApolloViewModel>(apolloData);
+            var apolloViewResult = _mapper.Map<ApolloData, ApolloViewModel>(apolloData);
 
             return apolloViewResult;
         }

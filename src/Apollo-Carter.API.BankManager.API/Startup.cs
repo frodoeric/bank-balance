@@ -10,6 +10,7 @@ using Apollo_Carter.API.BankManager.Application.Services;
 using Apollo_Carter.API.BankManager.Domain.ApolloData;
 using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
 using Apollo_Carter.API.BankManager.Domain.ApolloData.Events;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Query;
 using Apollo_Carter.API.BankManager.Infrastructure.Factories;
 using Apollo_Carter.API.BankManager.Infrastructure.Repositories;
 using FluentMediator;
@@ -45,7 +46,7 @@ namespace Apollo_Carter.API.BankManager.API
         {
             services.AddControllers();
 
-            services.AddScoped<ITaskService, TaskService>();
+            services.AddScoped<IApolloService, ApolloService>();
             services.AddTransient<IApolloDataRepository, ApolloDataRepository>(); //just as an example, you may use it as .AddScoped
             services.AddSingleton<ApolloDataProfile>();
             services.AddTransient<IApolloDataFactory, EntityFactory>();
@@ -62,6 +63,11 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddScoped<ApolloEventHandler>();
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddMediatR(cfg =>
+                cfg.RegisterServicesFromAssemblies(
+                    typeof(GetEndOfDayBalanceQuery).Assembly,
+                    typeof(GetEndOfDayBalanceQuery).Assembly
+                    ));
 
             services.AddFluentMediator(builder =>
             {

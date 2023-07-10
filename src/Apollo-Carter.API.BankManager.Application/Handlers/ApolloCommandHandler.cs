@@ -23,7 +23,7 @@ namespace Apollo_Carter.API.BankManager.Application.Handlers
             _mediator = mediator;
         }
 
-        public async Task<Domain.ApolloData.ApolloData> HandleNewTask(CreateNewApolloCommand createNewApolloCommand)
+        public async Task<ApolloData> HandleNewTask(CreateNewApolloCommand createNewApolloCommand)
         {
             var task = _taskFactory.CreateApolloDataInstance(
                 createNewApolloCommand.ProviderName,

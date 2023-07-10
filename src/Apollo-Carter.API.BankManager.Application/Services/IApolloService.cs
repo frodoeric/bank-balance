@@ -16,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace Apollo_Carter.API.BankManager.Application.Services
 {
-    public interface ITaskService
+    public interface IApolloService
     {
         Task<ApolloViewModel> GetAll();
         Task<ApolloViewModel> GetById(Guid id);
