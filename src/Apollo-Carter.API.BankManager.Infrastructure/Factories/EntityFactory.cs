@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
 
 namespace Apollo_Carter.API.BankManager.Infrastructure.Factories
 {

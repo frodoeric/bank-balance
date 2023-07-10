@@ -32,9 +32,9 @@ namespace Apollo_Carter.API.BankManager.Infrastructure.Repositories
 
         public Task<ApolloData> FindAll()
         {
-            var apolloData = Task.FromResult(ReadApolloDataJsonFile());
-
-            return apolloData;
+            var entity = ReadApolloDataJsonFile();
+            return Task.FromResult(
+                _accountFactory.CreateApolloDataInstance(entity.ProviderName, entity.CountryCode, entity.Accounts));
         }
 
         public Task<ApolloData> FindById(Guid id)

@@ -8,5 +8,9 @@ namespace Apollo_Carter.API.BankManager.Domain.ApolloData.Commands
 {
     public class EndOfDayBalance
     {
+        public decimal EndBalance { get; set; }
+        public decimal AmountCredits { get; set; }
+        public decimal AmountDebits { get; set; }
+        public IEnumerable<EndOfDayBalanceType> EodBalanceTypes { get; set; }
     }
 }

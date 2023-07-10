@@ -2,8 +2,12 @@
 using System.Threading.Tasks;
 using Apollo_Carter.API.BankManager.Application.Services;
 using Apollo_Carter.API.BankManager.Application.ViewModels;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Commands;
+using Apollo_Carter.API.BankManager.Domain.ApolloData.Query;
+using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 
 namespace Apollo_Carter.API.BankManager.API.Controllers
@@ -12,12 +16,14 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
     [ApiController]
     public class ApolloController : ControllerBase
     {
+        private ISender _mediator;
         private readonly IApolloService _taskService;
 
 
-        public ApolloController(IApolloService taskService)
+        public ApolloController(IApolloService taskService, ISender mediator)
         {
-            _taskService = taskService;            
+            _taskService = taskService;
+            _mediator = mediator;
         }
 
         /// <summary>
@@ -25,12 +31,13 @@ namespace Apollo_Carter.API.BankManager.API.Controllers
         /// </summary>
         /// <returns>Returns end of day balances for each dai in the transactions</returns>
         [HttpGet("EndOfDayBalance")]
-        [ProducesResponseType(typeof(ApolloViewModel), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(EndOfDayBalance), StatusCodes.Status200OK)]
         public async Task<IActionResult> GetEndOfDayBalance()
         {
             try
             {
-                return Ok(await _taskService.GetAll());
+                var eodBalance = await _mediator.Send(new CalculateBalanceSummaryQuery());
+                return Ok(eodBalance);
             }
             catch (Exception ex)
             {

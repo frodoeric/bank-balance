@@ -12,20 +12,20 @@ namespace Apollo_Carter.API.BankManager.Application.Handlers
 {
     public class ApolloCommandHandler
     {
-        private readonly IApolloDataFactory _taskFactory;
+        private readonly IApolloDataFactory _apolloFactory;
         private readonly IApolloDataRepository _taskRepository;
         private readonly IMediator _mediator;
 
-        public ApolloCommandHandler(IApolloDataRepository taskRepository, IApolloDataFactory taskFactory, IMediator mediator)
+        public ApolloCommandHandler(IApolloDataRepository taskRepository, IApolloDataFactory apolloFactory, IMediator mediator)
         {
             _taskRepository = taskRepository;
-            _taskFactory = taskFactory;
+            _apolloFactory = apolloFactory;
             _mediator = mediator;
         }
 
         public async Task<ApolloData> HandleNewTask(CreateNewApolloCommand createNewApolloCommand)
         {
-            var task = _taskFactory.CreateApolloDataInstance(
+            var task = _apolloFactory.CreateApolloDataInstance(
                 createNewApolloCommand.ProviderName,
                 createNewApolloCommand.CountryCode,
                 createNewApolloCommand.Accounts);

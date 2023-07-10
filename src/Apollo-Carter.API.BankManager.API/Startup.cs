@@ -47,9 +47,11 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddControllers();
 
             services.AddScoped<IApolloService, ApolloService>();
+            services.AddScoped<IBalanceCalculatorService, BalanceCalculatorService>();
             services.AddTransient<IApolloDataRepository, ApolloDataRepository>(); //just as an example, you may use it as .AddScoped
             services.AddSingleton<ApolloDataProfile>();
             services.AddTransient<IApolloDataFactory, EntityFactory>();
+            services.AddTransient<IEndOfDayBalanceFactory, EodBalanceEntityFactory>();
 
 
             //services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -65,8 +67,7 @@ namespace Apollo_Carter.API.BankManager.API
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddMediatR(cfg =>
                 cfg.RegisterServicesFromAssemblies(
-                    typeof(GetEndOfDayBalanceQuery).Assembly,
-                    typeof(GetEndOfDayBalanceQuery).Assembly
+                    typeof(CalculateBalanceSummaryQuery).Assembly
                     ));
 
             services.AddFluentMediator(builder =>
