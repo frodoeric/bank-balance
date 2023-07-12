@@ -42,7 +42,7 @@ This is just the version used by the template, if you need to use a newer or old
 ```
 C:.
 │   .gitignore
-│   Dotnet.Onion.Template.sln
+│   Apollo-Carter.API.BankManager.sln
 │   README.md
 │
 ├───docs
@@ -54,12 +54,13 @@ C:.
 │
 ├───images
 │       dotnet-onion-ddd-cqrs-es.jpg
+|       onion-ring-cqrs.png
 │
 ├───src
-│   ├───Dotnet.Onion.Template.API
+│   ├───Apollo-Carter.API.BankManager.API
 │   │   │   .dockerignore
 │   │   │   Dockerfile
-│   │   │   Dotnet.Onion.Template.API.csproj
+│   │   │   Apollo-Carter.API.BankManager.API.csproj
 │   │   │   Program.cs
 │   │   │   Startup.cs
 │   │   │
@@ -71,7 +72,7 @@ C:.
 │   │   │       appsettings-stag.json
 │   │   │
 │   │   ├───Controllers
-│   │   │       TasksController.cs
+│   │   │       ApollosController.cs
 │   │   │
 │   │   ├───Extensions
 │   │   │   └───Middleware
@@ -81,71 +82,71 @@ C:.
 │   │   └───Properties
 │   │           launchSettings.json
 │   │
-│   ├───Dotnet.Onion.Template.Application
-│   │   │   Dotnet.Onion.Template.Application.csproj
+│   ├───Apollo-Carter.API.BankManager.Application
+│   │   │   Apollo-Carter.API.BankManager.Application.csproj
 │   │   │
 │   │   ├───Handlers
-│   │   │       TaskCommandHandler.cs
-│   │   │       TaskEventHandler.cs
+│   │   │       ApolloCommandHandler.cs
+│   │   │       ApolloEventHandler.cs
 │   │   │
 │   │   ├───Mappers
-│   │   │       TaskViewModelMapper.cs
+│   │   │       ApolloViewModelMapper.cs
 │   │   │
 │   │   ├───Services
-│   │   │       ITaskService.cs
-│   │   │       TaskService.cs
+│   │   │       IApolloService.cs
+│   │   │       ApolloService.cs
 │   │   │
 │   │   └───ViewModels
-│   │           TaskViewModel.cs
+│   │           ApolloViewModel.cs
 │   │
-│   ├───Dotnet.Onion.Template.Domain
-│   │   │   Dotnet.Onion.Template.Domain.csproj
+│   ├───Apollo-Carter.API.BankManager.Domain
+│   │   │   Apollo-Carter.API.BankManager.Domain.csproj
 │   │   │   IAggregateRoot.cs
 │   │   │   IRepository.cs
 │   │   │
-│   │   └───Tasks
-│   │       │   ITaskFactory.cs
-│   │       │   ITaskRepository.cs
-│   │       │   Task.cs
+│   │   └───Apollos
+│   │       │   IApolloFactory.cs
+│   │       │   IApolloRepository.cs
+│   │       │   Apollo.cs
 │   │       │
 │   │       ├───Commands
-│   │       │       CreateNewTaskCommand.cs
-│   │       │       DeleteTaskCommand.cs
-│   │       │       TaskCommand.cs
+│   │       │       CreateNewApolloCommand.cs
+│   │       │       DeleteApolloCommand.cs
+│   │       │       ApolloCommand.cs
 │   │       │
 │   │       ├───Events
-│   │       │       TaskCreatedEvent.cs
-│   │       │       TaskDeletedEvent.cs
-│   │       │       TaskEvent.cs
+│   │       │       ApolloCreatedEvent.cs
+│   │       │       ApolloDeletedEvent.cs
+│   │       │       ApolloEvent.cs
 │   │       │
 │   │       └───ValueObjects
 │   │               Description.cs
 │   │               Summary.cs
-│   │               TaskId.cs
+│   │               ApolloId.cs
 │   │
-│   └───Dotnet.Onion.Template.Infrastructure
-│       │   Dotnet.Onion.Template.Infrastructure.csproj
+│   └───Apollo-Carter.API.BankManager.Infrastructure
+│       │   Apollo-Carter.API.BankManager.Infrastructure.csproj
 │       │
 │       ├───Factories
 │       │       EntityFactory.cs
-│       │       TaskFactory.cs
+│       │       ApolloFactory.cs
 │       │
 │       └───Repositories
-│               TaskRepository.cs
+│               ApolloRepository.cs
 │
 └───tests
-    └───Dotnet.Onion.Template.Tests
-        │   Dotnet.Onion.Template.Tests.csproj
+    └───Apollo-Carter.API.BankManager.Tests
+        │   Apollo-Carter.API.BankManager.Tests.csproj
         │
         └───UnitTests
             ├───Application
             │   └───Services
-            │           TaskServiceTests.cs
+            │           ApolloServiceTests.cs
             │
             └───Helpers
                     HttpContextHelper.cs
-                    TaskHelper.cs
-                    TaskViewModelHelper.cs
+                    ApolloHelper.cs
+                    ApolloViewModelHelper.cs
 
 
 
