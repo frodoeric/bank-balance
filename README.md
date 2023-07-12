@@ -6,7 +6,7 @@ The purpose of this API is to perform end-of-day balance calculations for each d
 ﻿# dotnet-template-onion
 
 <p align="center">
-  <img src="images/logo.jpg" alt="dotnet-template-onion logo" width="400"/>
+  <img src="images/onion-ring-cqrs.png" alt="dotnet-template-onion logo" width="400"/>
 </p>
 
 A .NET/.NET Core template to use Onion Architecture and DDD (Domain Driven Design) with CQRS and ES with a simple example on how to use all this architecture together from the Controller until the Repository class using Domain objects and different patterns.
